@@ -1,3 +1,10 @@
+How to run the app：
+Open the terminal and run those commands：
+        npm install
+,and then run:
+        npm start 
+Now we can see the app in your browser.
+
 Next step:
 1. Change the points and the level calculation, and add local storage for the highest points.
 2. Add some animation for the rows clear.
