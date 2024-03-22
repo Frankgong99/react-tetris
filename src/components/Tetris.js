@@ -4,6 +4,7 @@ import { createStage, checkCollision } from '../gameHelper';
 
 // Styled Components
 import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
+import { StyleInstruction } from './styles/StyledInstruction';
 
 // Custom Hooks
 import { useInterval } from '../hook/useInterval';
@@ -27,7 +28,7 @@ const Tetris = () => {
   const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
   const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
   const [playedGameOverSound, setPlayedGameOverSound] = useState(false); // New state to track whether game over sound has been played
-  const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared);
+  const [score, setScore, rows, setRows, level, setLevel, highestScore] = useGameStatus(rowsCleared);
 
   console.log('re-render');
 
@@ -42,6 +43,7 @@ const Tetris = () => {
   const startGame = () => {
     console.log("test")
     // Reset everything
+    // localStorage.clear();
     setStage(createStage());
     setDropTime(1000);
     resetPlayer();
@@ -122,15 +124,29 @@ const Tetris = () => {
         <Stage stage={stage} />
         <aside>
           {gameOver ? (
+            <div>
+            <Display text={`Highest Score: ${highestScore}`} />
             <Display gameOver={gameOver} text="Game Over" />
+            </div>
           ) : (
             <div>
+              <Display text={`Highest Score: ${highestScore}`} />
               <Display text={`Score: ${score}`} />
               <Display text={`Rows: ${rows}`} />
               <Display text={`Level: ${level}`} />
             </div>
           )}
           <StartButton callback={startGame} />
+          <div>
+          <StyleInstruction>
+          Click the "Start Game" button to start playing Tetris!<br></br>
+          Use the arrow keys on your keyboard to move the tetrominoes left, right, or down.
+          Press the up arrow key to rotate the tetrominoes.<br></br>
+          Create complete horizontal lines of blocks to make them disappear.
+          Aim to create as many complete lines as possible to score points.<br></br>
+          <br></br>Enjoy the game!
+          </StyleInstruction>
+          </div>
         </aside>
       </StyledTetris>
     </StyledTetrisWrapper>

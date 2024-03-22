@@ -1,3 +1,5 @@
+Citation: learn the code and how to use the custom hook from: 
+https://youtu.be/ZGOaCxX8HIU?si=GqU2ReVe5_2FaaNF 
 How to run the app：
 Open the terminal and run those commands：
         npm install
@@ -6,7 +8,5 @@ Open the terminal and run those commands：
 Now we can see the app in your browser.
 
 Next step:
-1. Change the points and the level calculation, and add local storage for the highest points.
-2. Add some animation for the rows clear.
-3. Add some instruction for how to play the game, using keybroad etc.
-4. Change some css and UI elements.
+
+Add some animation for the rows clear.

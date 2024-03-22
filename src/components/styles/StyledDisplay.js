@@ -10,7 +10,7 @@ min-height: 30px;
 padding-left: 15px;
 padding-top: 5px;
 padding-bottom: 5px;
-width: 100%;
+width: 40%;
 border-radius: 20px;
 color: ${props => (props.gameOver ? 'red' : '#999')};
 background: #000;
