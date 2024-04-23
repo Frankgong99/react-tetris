@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { createStage, checkCollision } from '../gameHelper';
+import { createStage, checkCollision, STAGE_HEIGHT, STAGE_WIDTH } from '../gameHelper';
 
 // Styled Components
 import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
@@ -26,11 +26,45 @@ const Tetris = () => {
   const [gameOver, setGameOver] = useState(false);
 
   const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
-  const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
+  const [stage, setStage, rowsCleared, flashRow] = useStage(player, resetPlayer);
   const [playedGameOverSound, setPlayedGameOverSound] = useState(false); // New state to track whether game over sound has been played
   const [score, setScore, rows, setRows, level, setLevel, highestScore] = useGameStatus(rowsCleared);
 
-  console.log('re-render');
+  useEffect(() => {
+    if (gameOver) {
+      let y = STAGE_HEIGHT;
+      const intervalIdAdd = setInterval(() => {
+        if (y > 0) {
+          setStage(prevStage => prevStage.map((row, index) => 
+            index === y ? new Array(STAGE_WIDTH).fill(['L', 'merged']) : row));
+          y -= 1;
+        }
+
+        if (y === 0) {
+          setStage(prevStage => prevStage.map((row, index) => 
+            index === y ? new Array(STAGE_WIDTH).fill([0, 'clear']) : row));
+          clearInterval(intervalIdAdd);
+
+          let yRemove = 0; 
+          const intervalIdRemove = setInterval(() => {
+            if (yRemove < STAGE_HEIGHT) {
+              setStage(prevStage => prevStage.map((row, index) => 
+                index === yRemove ? new Array(STAGE_WIDTH).fill([0, 'clear']) : row));
+              yRemove += 1;
+            }
+            
+            if (yRemove === STAGE_HEIGHT) {
+              clearInterval(intervalIdRemove);
+            }
+          }, 25);
+        }
+      }, 25);
+
+      return () => {
+        clearInterval(intervalIdAdd);
+      };
+    }
+  }, [gameOver]);
 
   const movePlayer = dir => {
     if (!checkCollision(player, stage, { x: dir, y: 0 })) {
@@ -41,7 +75,6 @@ const Tetris = () => {
   }
 
   const startGame = () => {
-    console.log("test")
     // Reset everything
     // localStorage.clear();
     setStage(createStage());
@@ -56,6 +89,9 @@ const Tetris = () => {
 
   const drop = () => {
     // Increase level when player has clear 10 rows
+    if (gameOver) {
+      return;
+    }
 
     if (rows > (level + 1) * 10) {
       setLevel(prev => prev + 1);
@@ -64,8 +100,6 @@ const Tetris = () => {
     }
     if (!checkCollision(player, stage, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 0.5, collided: false });
-      console.log(player.pos.y);
-      console.log(player.pos.x);
     } else {
       // Game Over
       if (player.pos.y < 1) {
@@ -76,8 +110,9 @@ const Tetris = () => {
           setPlayedGameOverSound(true); // Update state to indicate that the sound has been played
         }
         // setDropTime(null);
+      } else {
+        updatePlayerPos({ x: 0, y: 0, collided: true });
       }
-      updatePlayerPos({ x: 0, y: 0, collided: true });
     }
   }
 
@@ -121,7 +156,7 @@ const Tetris = () => {
     onKeyDown={e => move(e)} 
     onKeyUp={keyUp}>
       <StyledTetris>
-        <Stage stage={stage} />
+        <Stage stage={stage} flashRow={flashRow} />
         <aside>
           {gameOver ? (
             <div>

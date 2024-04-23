@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+const flash = keyframes`
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+`;
+
 export const StyledCell = styled.div`
    width: auto;
    background: rgba(${props => props.color}, 0.8);

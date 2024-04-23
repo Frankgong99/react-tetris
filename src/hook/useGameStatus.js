@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 export const useGameStatus = rowsCleared => {
     const [score, setScore] = useState(0);
@@ -13,14 +13,14 @@ export const useGameStatus = rowsCleared => {
         }
     }, []);
 
-    const updateHighestScore = (newScore) => {
+    const updateHighestScore = useCallback((newScore) => {
         if (newScore > highestScore) {
             localStorage.setItem('tetrisHighestScore', newScore);
             setHighestScore(newScore);
         }
-    };
+    },[highestScore]);
 
-    const linePointes = [ 40, 100, 300, 1200];
+    const linePointes = useMemo(() => [ 40, 100, 300, 1200], []);
 
     const calcScore = useCallback(() => {
         // we have score
