@@ -4,7 +4,7 @@ This project is a modern implementation of the classic Tetris game using React. 
 
 Interface review： 
 
-[!Interface review](https://frankgong99.github.io/images/Interface_review.gif)
+[![Interface review](/assets/images/interface_review.gif "Look at the interface review of Tetris APP.")](https://frankgong99.github.io/images/Interface_review.gif)
 
 ## Features
 
