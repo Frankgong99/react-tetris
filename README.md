@@ -6,6 +6,8 @@ Interface review：
 
 ! [Interface review](https://frankgong99.github.io/images/Interface_review.gif "This is the interface review of Tetris APP.")
 
+![Interface review](https://frankgong99.github.io/images/Interface_review.gif)
+
 ## Features
 
 - **Keyboard Controls:** Players can use the keyboard to control the movement and rotation of Tetrominoes.
