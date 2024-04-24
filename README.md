@@ -39,7 +39,8 @@ This will run the app in the development mode. Open http://localhost:3000 to vie
 To play the game, use the arrow keys for moving the Tetrominoes left or right and the up arrow key to rotate them. The space bar can be used to drop the Tetrominoes faster. Clear lines to gain points and increase the level to up the challenge.
 
 # Built With
-React - The web framework used
+React - The web framework used 
+
 Node.js - Server Environment 
 
 # Authors 
