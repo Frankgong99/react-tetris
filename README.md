@@ -2,11 +2,9 @@
 
 This project is a modern implementation of the classic Tetris game using React. It features keyboard controls for movement and rotation of Tetrominoes, an algorithmic game curve for increasing difficulty, and local storage utilization for high score tracking. 
 
-Interface review： 
+## Interface review： 
 
 ![Interface review](https://frankgong99.github.io/images/Interface_review.gif "This is the interface review of Tetris APP.")
-
-![Interface review](https://frankgong99.github.io/images/Interface_review.gif)
 
 ## Features
 
